@@ -2,9 +2,28 @@
 
 GPU kernels and KV cache optimizations for open weight model inference, plus a red teaming harness that stress tests models and agents for security failures.
 
+For teams running open weight models in production who need faster, cheaper inference and evidence that their models and agents hold up against attacks.
+
 ## Status
 
-Prototype, in active development. This repo currently holds the plan and early experiments. Code lands here as each piece becomes runnable.
+Prototype, in active development. The repo holds a baseline profiling script, a toy KV cache experiment, and a first stub of the red teaming harness. More lands here as each piece becomes runnable.
+
+## What is in the repo
+
+| Path | What it does |
+| --- | --- |
+| `benchmarks/baseline_profile.py` | Measures decoding throughput and peak GPU memory for an open weight model with the KV cache on and off |
+| `kv_cache/toy_attention.py` | Framework free attention decode that checks cached and uncached outputs match and times both |
+| `harness/harness.py` | Harness v0 stub that runs prompt injection cases against a pluggable target and reports canary leaks |
+
+Quick start
+
+```
+pip install -r requirements.txt
+python kv_cache/toy_attention.py
+python harness/harness.py
+python benchmarks/baseline_profile.py --model gpt2
+```
 
 ## What I am working on now
 
